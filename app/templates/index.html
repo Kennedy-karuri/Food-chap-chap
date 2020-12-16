@@ -1,13 +1,18 @@
-{% extends 'base.html'%}
-{% block content %}
-<h2 style="text-align: center;">Welcome To Food Chap Chap.</h2><br><br><br><br><br><br><br><br><br><br>
+{% extends 'base.html' %}
+{% import 'macros.html' as macro%}
+{% block styles%}
+{{ super() }}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+<link rel="preconnect" href="https://fonts.gstatic.com">
 
-<hr>
-<div style="text-align: center; font-size: 100%;">
-    <p style="display: block;">For more info click on the link below to subscribe</p>
-<button class="btn btn-info" type="button">
-    <a href="{{url_for('main.subscriber',uname = current_user.username)}}">Subscribe Here</a>
-</button>
-</div>
-
+{% endblock %}
+{% block content%}
+<div class="container-fluid">
+    <div class="row">
+        <h2 style="color: red;text-align: center; padding-top: 50px;  font-weight: 900;">WELCOME TO FOOD CHAP-CHAP</h2>
+        {% if current_user.is_anonymous%}
+        {%endif%}
+        </ul>
+    </div>
+ 
 {% endblock %}
