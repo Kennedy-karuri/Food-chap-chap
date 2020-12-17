@@ -1,6 +1,6 @@
 from flask import render_template,request,redirect,url_for,abort,flash
 from . import main
-# from ..requests import get_quotes
+from ..requests import getQuotes
 from flask_login import login_required
 from .forms import UpdateProfile
 from ..models import User
@@ -11,21 +11,21 @@ import markdown2
 
 @main.route('/')
 def index():
-    # quotes = get_quotes()
-    
-    title = 'Food chap-chap'
-    return render_template('index.html', title = title)
+    getquotes = getQuotes()
+    articles=Article.get_all_articles()
+    popular=Article.query.order_by(Article.article_upvotes.desc()).limit(3).all()
+    return render_template('index.html',getquotes = getquotes, articles=articles,popular=popular)
 
 @main.route('/about')
 def about():
-    # quotes = get_quotes()
+    getquotes = getQuotes()
     
     title = 'Food chap-chap'
     return render_template('about.html', title = title)
 
 @main.route('/contact')
 def contact():
-    # quotes = get_quotes()
+    getquotes = getQuotes()
     title = 'Food chap-chap'
     return render_template('contact.html', title = title)
 
@@ -74,64 +74,112 @@ def update_pic(uname):
     return redirect(url_for('main.profile',uname=uname))
 
 
-@main.route('/order/new', methods=['GET', 'POST'])
+@main.route('/article/new',methods= ['GET','POST'])
 @login_required
-def order():
-    """
-    View Post function that returns the Order made and data
-    """
-    order_form = OrderForm()
-    if order_form.validate_on_submit():
-        order_title = order_form.order_title.data
-        description = order_form.description.data
-        new_order = Order(order_title=order_title, description=description, author=current_user)
-        db.session.add(new_order)
-        db.session.commit()
-        return redirect(url_for('main.all'))
-    title = 'New Order | food'
-    return render_template('order.html', title=title, order_form=order_form)
+def new_article():
+    if request.method=='POST':
+        article_title=request.form['title']
+        article_body=request.form['body']
+        article_tag=request.form['tag']
+        filename = photos.save(request.files['photo'])
+        article_cover_path=f'photos/{filename}'
+        
+        new_article=Article(article_title=article_title,article_body=article_body,article_tag=article_tag,article_cover_path=article_cover_path,user=current_user)
+        new_article.save_article()
 
-
-@main.route('/delete/<int:id>', methods=['GET', 'POST'])
-@login_required
-def delete(id):
-    order = Order.query.get_or_404(id)
-    if order.author != current_user:
-        abort(403)
-    db.session.delete(post)
-    db.session.commit()
-    # flash('Your order has been deleted', 'successfully')
-    return redirect(url_for('main.all'))
-
-
-@main.route('/Update/<int:id>', methods=['GET', 'POST'])
-@login_required
-def update_order(id):
-    order = Order.query.get_or_404(id)
-    if order.author != current_user:
-        abort(403)
-    form = PostForm()
-    if form.validate_on_submit():
-        order.order_title = form.order_title.data
-        order.description = form.description.data
-        db.session.commit()
-        flash('Your order has been Updated', 'successfully')
-        return redirect(url_for('main.all'))
-    elif request.method == 'GET':
-        form.order_title.data = order.post_title
-        form.description.data = order.description
-    return render_template('update_order.html', form=form)
-
-#Subscribe
-@main.route('/subscribe', methods=['GET', 'POST'])
-def subscribe():
-    '''
-    Function to send email upon subscription
-    '''
-    if request.method == 'POST':
-        email = request.form['email']
-        new_email = Subscribe(email=email)
-        db.session.add(new_email)
-        db.session.commit()
-        flash('Thank you for subscribing')
+        flash('Article added')
         return redirect(url_for('main.index'))
+
+    return render_template('new_article.html') 
+
+@main.route('/articles/tag/<tag>')
+@login_required
+def article_by_tag(tag):
+
+    '''
+    View root page function that returns pitch category page with pitches from category selected
+    '''
+    articles=Article.query.filter_by(article_tag=tag).order_by(Article.posted.desc()).all()
+    
+    return render_template('article_by_tag.html',articles=articles,tag=tag)  
+
+@main.route('/article_details/<article_id>', methods = ['GET','POST'])
+@login_required
+def article_details(article_id):
+
+    '''
+    View article details function that returns article_details and comment form
+    '''
+
+    form = CommentForm()
+    article=Article.query.get(article_id)
+    comments=Comment.query.filter_by(article_id=article_id).order_by(Comment.posted.desc()).all()
+    
+    if form.validate_on_submit():
+        comment = form.comment.data
+        
+        # Updated comment instance
+        new_comment = Comment(comment=comment,user=current_user,article=article)
+
+        # save review method
+        new_comment.save_comment()
+        article.article_comments_count = article.article_comments_count+1
+
+        db.session.add(article)
+        db.session.commit()
+        flash('Comment posted')
+        return redirect(url_for('main.article_details',article_id=article_id))
+
+    return render_template('article_details.html',comment_form=form,article=article,comments=comments) 
+
+
+@main.route('/article_upvote/<article_id>')
+@login_required
+def article_upvote(article_id):
+    '''
+    View function to add do upvote on article like btn click
+    '''
+    article=Article.query.get(article_id)
+    article.article_upvotes=article.article_upvotes+1
+    db.session.add(article)
+    db.session.commit() 
+    flash('You liked this article') 
+    return redirect(url_for('main.article_details',article_id=article_id)) 
+
+
+@main.route('/article_downvote/<article_id>')
+@login_required
+def article_downvote(article_id):
+    '''
+    View function to add downvote on article dislike btn click
+    '''
+    article=Article.query.get(article_id)
+    article.article_downvotes=article.article_downvotes+1
+    db.session.add(article)
+    db.session.commit()  
+    flash('You disliked this article')
+    return redirect(url_for('main.article_details',article_id=article_id))   
+
+
+@main.route('/comment/delete/<comment_id>/<article_id>')
+@login_required
+def delete_comment(comment_id,article_id):
+    comment = Comment.query.get(comment_id)
+    db.session.delete(comment)
+    article=Article.query.get(article_id)
+    article.article_comments_count = article.article_comments_count-1
+    db.session.add(article)
+    db.session.commit()
+    flash('You deleted a comment')
+    return redirect(url_for('main.article_details',article_id=article_id))  
+
+
+@main.route('/article/delete/<article_id>')
+@login_required
+def delete_article(article_id):
+  article = Article.query.get(article_id)
+  db.session.delete(article)
+  db.session.commit()
+  flash('You deleted an article')
+  return redirect(url_for('main.index'))
+ 
