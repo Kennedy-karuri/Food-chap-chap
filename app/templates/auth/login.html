@@ -3,8 +3,8 @@
 
 {% block content%}
 <div class="div">
-    <div class="container pt-5 mt-5" style="font-size: 30px;; width: 50vw;">
-        <div class="row pt-5 mt-5">
+    <div class="container pt-5 mt-5"  style="text-align: center;font-family: 'Langar', cursive;font-family: 'Russo One', sans-serif;">
+        <div class="row pt-5 mt-5"style="font-size: 25px;; width: 50vw;padding-left:7cm;">
 
             <div class="col-md-2"> </div>
 
@@ -21,7 +21,7 @@
 
                 {{ wtf.quick_form(login_form) }}
 
-                <p style="color:red;"> Don't have an account? <a style="color:blue;" href="{{url_for('auth.register')}}">Sign up here</a>
+                <p style="color:red;"> Don't have an account? <a style="color:white;" href="{{url_for('auth.register')}}">Sign up here</a>
                 </p>
 
             </div>
@@ -32,5 +32,15 @@
     </div>
 </div>
 
+<style>
+    body{
+        background-image: url(../static/hotel1.jpeg);
+        background-repeat: no-repeat;
+        background-size: cover;
+        color:white;
+        text-align: center;
+        
+    }
+</style>
 
 {%endblock%}

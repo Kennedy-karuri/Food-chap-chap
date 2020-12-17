@@ -1,0 +1,3 @@
+Hello {{user.username}}
+Welcome to Ken's Blog
+Welcome to my Blog.Reach out for any comment or complaint.

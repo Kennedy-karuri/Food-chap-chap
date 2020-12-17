@@ -16,6 +16,12 @@ def index():
     title = 'Food chap-chap'
     return render_template('index.html', title = title)
 
+@main.route('/about')
+def about():
+    # quotes = get_quotes()
+    
+    title = 'Food chap-chap'
+    return render_template('about.html', title = title)
 
 @main.route('/user/<uname>')
 @login_required
