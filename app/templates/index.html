@@ -1,18 +1,49 @@
 {% extends 'base.html' %}
-{% import 'macros.html' as macro%}
-{% block styles%}
-{{ super() }}
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-<link rel="preconnect" href="https://fonts.gstatic.com">
 
-{% endblock %}
 {% block content%}
-<div class="container-fluid">
-    <div class="row">
-        <h2 style="color: red;text-align: center; padding-top: 50px;  font-weight: 900;">WELCOME TO FOOD CHAP-CHAP</h2>
-        {% if current_user.is_anonymous%}
-        {%endif%}
-        </ul>
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Langar&family=Russo+One&display=swap" rel="stylesheet">
+
+
+<div class="container">
+    <div class="firstpage">
+        <div class="logo">
+        </div>
+        <h1>DELICIOUS RECIPES</h1>
+        <p>The main problem with this great obsession for saving time is very simple: you can't save time. You can only
+            spend it. But you can spend it wisely or foolishly.
+            <br>That is why FOOD CHAP-CHAP is created to help you save time and save on long queing time.
+        </p>
+
     </div>
- 
-{% endblock %}
+
+    <style>
+        body{
+            background-image: url(../static/hotel1.jpeg);
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        h1 {
+            color: white;
+            font-size: 2cm;
+            font-style: italic;
+            text-align: center;
+            padding-top: 2cm;
+            font-weight: 900;
+            font-family: 'Langar', cursive;
+            font-family: 'Russo One', sans-serif;
+            font-stretch:wider;
+        }
+
+        p {
+            color:white;
+            font-style: italic;
+            text-align: center;
+            padding-top: 1cm;
+            font-family: 'Langar', cursive;
+            font-family: 'Russo One', sans-serif;
+
+        }
+    </style>
+
+    {% endblock %}

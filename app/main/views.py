@@ -1,9 +1,9 @@
 from flask import render_template,request,redirect,url_for,abort,flash
 from . import main
-from ..requests import get_quotes
+# from ..requests import get_quotes
 from flask_login import login_required
-from .forms import UpdateProfile,PostForm,CommentForm
-from ..models import User,PhotoProfile,Post,Comment,Subscribe
+from .forms import UpdateProfile
+from ..models import User
 from .. import db,photos
 from flask_login import login_required, current_user
 import markdown2
@@ -11,10 +11,10 @@ import markdown2
 
 @main.route('/')
 def index():
-    quotes = get_quotes()
+    # quotes = get_quotes()
     
     title = 'Food chap-chap'
-    return render_template('index.html', title = title,quotes = quotes)
+    return render_template('index.html', title = title)
 
 
 @main.route('/user/<uname>')

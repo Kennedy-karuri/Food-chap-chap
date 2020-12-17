@@ -28,14 +28,3 @@ class User(UserMixin,db.Model):
     def __repr__(self):
         return f'User {self.username}'
 
-class Comment(db.Model):
-    'Comment model schema'
-    __tablename__ = 'comments'
-    id = db.Column(db.Integer,primary_key = True)
-    comment = db.Column(db.String)
-    posted = db.Column(db.DateTime,default=datetime.utcnow)
-    user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
-    article_id = db.Column(db.Integer,db.ForeignKey("articles.id"))
-    def save_comment(self):
-        db.session.add(self)
-        db.session.commit()
