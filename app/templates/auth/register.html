@@ -1,11 +1,30 @@
 {% extends 'base.html'%}
 {% import 'bootstrap/wtf.html' as wtf%}
 {% block content %}
-<div>
-<div class="row">
-<div class="col-md-4 card mt-3 p-5" style="font-size: 20px;  padding-top: 40px;">
-    <h3>Register</h3>
-    <hr>
-{{wtf.quick_form(registration_form)}}
-<p> Do you have an account? <a href="{{url_for('auth.login')}}">Login</a></p>
+<div class="div" style="background-repeat: no-repeat;background-size: cover;text-align: center; font-family: 'Langar', cursive;
+font-family: 'Russo One', sans-serif;">
+    <div class="container"  style=" font-size: 25px;; width: 50vw;" >
+        <div class="row">
+            <div class="col-md-2"> </div>
+            <div class="col-md-8">
+    
+                {{wtf.quick_form(registration_form)}}
+                <p> Do you have an account? <a href="{{url_for('auth.login')}}">Login</a></p>
+    
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </div>
+</div>
+
+<style>
+    body{
+        background-image: url(../static/hotel1.jpeg);
+        background-repeat: no-repeat;
+        background-size: cover;
+        color:white;
+    }
+</style>
 {% endblock%}
+
+
