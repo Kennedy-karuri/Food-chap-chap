@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content%}
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Langar&family=Russo+One&display=swap" rel="stylesheet">
+
+
+<div class="container">
+    <div class="firstpage">
+        <div class="logo">
+        </div>
+        
+        <h1>DELICIOUS RECIPES</h1>
+        <p>The main problem with this great obsession for saving time is very simple: you can't save time. You can only
+            spend it. But you can spend it wisely or foolishly.
+            <br>That is why FOOD CHAP-CHAP is created to help you save time and save on long queing time.
+        </p>
+
+    </div>
+
+    <style>
+        body{
+            background-image: url(../static/hotel1.jpeg);
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        h1 {
+            color: blue;
+            font-size: 2cm;
+            font-style: italic;
+            text-align: center;
+            padding-top: 2cm;
+            font-weight: 900;
+            font-family: 'Langar', cursive;
+            font-family: 'Russo One', sans-serif;
+            font-stretch:wider;
+        }
+
+        p {
+            color:white;
+            font-style: italic;
+            text-align: center;
+            padding-top: 1cm;
+            font-family: 'Langar', cursive;
+            font-family: 'Russo One', sans-serif;
+            font-size:20px;
+
+        }
+    </style>
+
+    {% endblock %}
