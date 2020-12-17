@@ -23,6 +23,12 @@ def about():
     title = 'Food chap-chap'
     return render_template('about.html', title = title)
 
+@main.route('/contact')
+def contact():
+    # quotes = get_quotes()
+    title = 'Food chap-chap'
+    return render_template('contact.html', title = title)
+
 @main.route('/user/<uname>')
 @login_required
 def profile(uname):
@@ -83,7 +89,7 @@ def order():
         db.session.commit()
         return redirect(url_for('main.all'))
     title = 'New Order | food'
-    return render_template('order.html', title=title, post_form=post_form)
+    return render_template('order.html', title=title, order_form=order_form)
 
 
 @main.route('/delete/<int:id>', methods=['GET', 'POST'])

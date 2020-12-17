@@ -2,7 +2,7 @@ from flask import render_template,redirect,url_for,flash,request
 from . import auth
 from flask_login import login_user,logout_user,login_required
 from ..models import User
-from .form import LoginForm,RegistrationForm
+from .form import LoginForm,RegistrationForm,ContactForm
 from .. import db
 from ..email import mail_message
 
@@ -38,3 +38,10 @@ def register():
         return redirect(url_for('auth.login'))
         title = "New Account"
     return render_template('auth/register.html',registration_form = form)
+@auth.route('/contact', methods=['GET', 'POST'])
+def contact():
+  form = ContactForm()
+  if request.method == 'POST':
+    return 'Form posted.'
+  elif request.method == 'GET':
+    return render_template('contact.html', form=form)
