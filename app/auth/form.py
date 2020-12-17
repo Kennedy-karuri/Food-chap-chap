@@ -27,4 +27,10 @@ class RegistrationForm(FlaskForm):
     def validate_username(self,data_field):
         if User.query.filter_by(username = data_field.data).first():
             raise ValidationError('Username already exist')
-        
+
+class ContactForm(FlaskForm):
+  name = TextAreaField("Name")
+  email = TextAreaField("Email")
+  subject = TextAreaField("Subject")
+  message = TextAreaField("Message")
+  submit = SubmitField("Send")        
