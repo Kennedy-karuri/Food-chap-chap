@@ -2,7 +2,7 @@ import os
 
 
 class Config:
-    SECRET_KEY = os.environ.get('SECRET_KEY')
+    SECRET_KEY = 'chelsea'
     SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://moringaaccess:Kennedy@localhost/food'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     UPLOADED_PHOTOS_DEST ='app/static/photos'

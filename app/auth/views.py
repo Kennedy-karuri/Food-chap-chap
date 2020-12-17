@@ -37,4 +37,4 @@ def register():
         mail_message("Welcome to food chap-chap","email/welcome_user",user.email,user=user)
         return redirect(url_for('auth.login'))
         title = "New Account"
-    return render_template('auth/register_user.html,register_hotel',registration_form = form)
+    return render_template('auth/register.html',registration_form = form)
