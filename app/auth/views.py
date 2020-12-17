@@ -38,6 +38,7 @@ def register():
         return redirect(url_for('auth.login'))
         title = "New Account"
     return render_template('auth/register.html',registration_form = form)
+<<<<<<< HEAD
 
 @auth.route('/contact', methods=['GET', 'POST'])
 def contact():
@@ -46,5 +47,12 @@ def contact():
   if request.method == 'POST':
     return 'Form posted.'
  
+=======
+@auth.route('/contact', methods=['GET', 'POST'])
+def contact():
+  form = ContactForm()
+  if request.method == 'POST':
+    return 'Form posted.'
+>>>>>>> 2d4f412032c214c8b50d9f0ca61dc8e114d9cdbf
   elif request.method == 'GET':
     return render_template('contact.html', form=form)

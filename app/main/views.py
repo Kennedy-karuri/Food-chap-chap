@@ -26,11 +26,17 @@ def about():
 @main.route('/contact')
 def contact():
     # quotes = get_quotes()
+<<<<<<< HEAD
     
     title = 'Food chap-chap'
     return render_template('contact.html', title = title)
 
 
+=======
+    title = 'Food chap-chap'
+    return render_template('contact.html', title = title)
+
+>>>>>>> 2d4f412032c214c8b50d9f0ca61dc8e114d9cdbf
 @main.route('/user/<uname>')
 @login_required
 def profile(uname):
