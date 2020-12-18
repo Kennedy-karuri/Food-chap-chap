@@ -3,7 +3,7 @@ from . import main
 from ..requests import getQuotes
 from flask_login import login_required
 from .forms import UpdateProfile
-from ..models import User
+from ..models import User,Article,Comment
 from .. import db,photos
 from flask_login import login_required, current_user
 import markdown2

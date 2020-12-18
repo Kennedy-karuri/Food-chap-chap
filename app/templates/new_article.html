@@ -1,38 +1,34 @@
 {% extends 'base.html' %} {%block content%}
 <div class="new-article mt-5">
-    <p class="h4 mb-4 text-center">New House</p>
+    <p class="h4 mb-4 text-center" style="color: blue;">MAKE AN ORDER</p>
     <form class="article-form m-auto" action="" method="post" enctype="multipart/form-data">
         <div class="form-group">
-            <label for="article_title">Food Type</label>
-            <input type="text" class="form-control" name="title" id="article_title" placeholder="Article Title" required>
+            <label for="article_title" style="color: blue;">Food Type</label>
+            <input type="text" class="form-control" name="title" id="article_title" placeholder="Place your order here"
+                required>
+
         </div>
-        <div class="form-group">
-            <label for="article_body">House Description</label>
-            <textarea class="form-control" name="body" id="article_body" rows="3" placeholder="Write Article" required></textarea>
-        </div>
-        <div class="form-group">
-            <label for="article_tag">Cloud Tag</label>
-            <select class="form-control" name="tag" id="article_tag" required>
-        <option value="karen">Karen</option>
-        <option value="runda">Runda</option>
-        <option value="umoja">Umoja</option>
-        <option value="embakasi">Embakasi</option>
-        <option value="kasarani">Kasarani</option>
-       
-        <option value="pipeline">Pipeline</option>
-        <option value="thika">Thika</option>
-        <option value=" Others">Others</option>
-      </select>
-        </div>
-        <div class="file-field">
-            <div class="btn btn-primary btn-sm float-left">
-                <span>Choose House Cover</span><br><br>
-                <input type="file" name="photo" id="photo" required>
-            </div>
-        </div>
-        <div class="form-group">
-            <input class="form-control" type="submit" value="POST A HOUSE">
-        </div>
-    </form>
 </div>
+<div class="form-group">
+    <label for="article_body" style="color: blue;">WHAT YOUD LIKE IN YOUR FOOD</label>
+    <textarea class="form-control" name="body" id="article_body" rows="3" placeholder="Write your description here"
+        required></textarea>
+</div>
+
+<div class="form-group">
+    <input class="form-control" type="submit" value="ORDER YOUR MEAL">
+</div>
+</form>
+</div>
+
+<style>
+    body{
+        background-image: url(../static/hotel1.jpeg);
+            background-repeat: no-repeat;
+            background-size: cover;
+            text-align: center;
+            color: white;
+    }
+
+</style>
 {%endblock%}
